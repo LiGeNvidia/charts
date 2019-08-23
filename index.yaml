@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  deepstream-4-egx:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-08-23T21:29:29.2439566Z"
+    description: A Helm chart for Kubernetes
+    digest: 6d163f4ecc1cdb09d5fdf4f1c2a8236b5005c6f893371974fc9d9d6886ef7a46
+    name: deepstream-4-egx
+    urls:
+    - https://ligenvidia.github.io/charts/deepstream-4-egx-0.1.0.tgz
+    version: 0.1.0
+  nginx:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-08-23T21:29:29.2478256Z"
+    description: A Helm chart for Kubernetes
+    digest: 6fca1418e507e2dfd16e847ed590546b381b1721e8e33940717d6c5dd51357fc
+    name: nginx
+    urls:
+    - https://ligenvidia.github.io/charts/nginx-0.1.5.tgz
+    version: 0.1.5
+generated: "2019-08-23T21:29:29.2394616Z"
