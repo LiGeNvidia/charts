@@ -35,6 +35,6 @@ build-shell:
 		bash
 
 publish:
-	git add -A
-	git commit -a -m "Update charts repo at $$(date)"
+	git add -A || true
+	git commit -a -m "Update charts repo at $$(date)" || true
 	git push origin HEAD
