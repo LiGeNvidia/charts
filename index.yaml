@@ -1,11 +1,32 @@
 apiVersion: v1
 entries:
+  clara:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T19:18:50.099160922Z"
+    description: A Helm chart for Kubernetes
+    digest: 3a7f12580d1b599bb34b8e584af0d8f77e0d102c4d4f825f798802008f579754
+    name: clara
+    urls:
+    - https://ligenvidia.github.io/charts/clara-0.0.1.tgz
+    version: 0.0.1
+  clara-renderer:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T19:18:50.099413326Z"
+    description: A helm chart for Clara Rendering Services. Included are a Renderer,
+      UI and Dataset management service.
+    digest: 45ed310100d0804f61a2c4164e2c26adae192f15df42fb48e8635b6ecf7fc197
+    name: clara-renderer
+    urls:
+    - https://ligenvidia.github.io/charts/clara-renderer-0.1.0.tgz
+    version: 0.1.0
   deepstream-4-egx:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-23T21:29:29.2439566Z"
+    created: "2019-09-23T19:18:50.099693639Z"
     description: A Helm chart for Kubernetes
-    digest: 6d163f4ecc1cdb09d5fdf4f1c2a8236b5005c6f893371974fc9d9d6886ef7a46
+    digest: 2282ba9557e9652a6a6eaa4d993c7ac395baa88de91d5f4f5b6b57848065b868
     name: deepstream-4-egx
     urls:
     - https://ligenvidia.github.io/charts/deepstream-4-egx-0.1.0.tgz
@@ -13,11 +34,21 @@ entries:
   nginx:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-23T21:29:29.2478256Z"
+    created: "2019-09-23T19:18:50.099861482Z"
     description: A Helm chart for Kubernetes
-    digest: 6fca1418e507e2dfd16e847ed590546b381b1721e8e33940717d6c5dd51357fc
+    digest: d9971488ae0d4245983728fe2b4690ea70156eec11b3ba0686058463c1093395
     name: nginx
     urls:
     - https://ligenvidia.github.io/charts/nginx-0.1.5.tgz
     version: 0.1.5
-generated: "2019-08-23T21:29:29.2394616Z"
+  results-service:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-09-23T19:18:50.100103257Z"
+    description: A Helm chart for the Results Service
+    digest: 4be2a6406fbbca3bde61afb51a45542370470f71e886f25560431dcec0f36281
+    name: results-service
+    urls:
+    - https://ligenvidia.github.io/charts/results-service-0.1.0.tgz
+    version: 0.1.0
+generated: "2019-09-23T19:18:50.095911829Z"
