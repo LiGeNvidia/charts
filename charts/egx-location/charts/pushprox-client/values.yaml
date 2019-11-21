@@ -1,0 +1,40 @@
+clusterDomain: "cluster.local"
+
+proxy:
+  serverUrl: ""
+  exposedServices:
+  - namespace: nsv-monitoring
+    name: ems-monitoring-kube-state-metrics
+    port: "8080"
+
+replicaCount: 1
+
+image:
+  repository: quay.io/ligenvidia/pushprox-client
+  tag: "1.0"
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/master
+          operator: Exists

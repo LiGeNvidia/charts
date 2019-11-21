@@ -1,0 +1,28 @@
+prometheus-node-exporter:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: nodeType
+            operator: DoesNotExist
+
+prometheus-node-exporter-gpu:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: nodeType
+            operator: In
+            values:
+            - gpu
+
+pushprox-client:
+  clusterDomain: "cluster.local"
+  proxy:
+    serverUrl: ""
+  exposedServices:
+  - namespace: nsv-monitoring
+    name: ems-monitoring-kube-state-metrics
+    port: "8080"

@@ -3,9 +3,9 @@ entries:
   clara:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-25T21:35:49.415727182Z"
+    created: "2019-11-21T17:53:45.133545963Z"
     description: A Helm chart for Kubernetes
-    digest: 810305c05de074bd2887f0c2b2a27296481573cea27ce901e5d0a68ca8a180fd
+    digest: 47ec7adf9766160754e97180159677d76f7e72a589b0d05b84b5ae73fca5857b
     name: clara
     urls:
     - https://ligenvidia.github.io/charts/clara-0.0.1.tgz
@@ -13,10 +13,10 @@ entries:
   clara-renderer:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-25T21:35:49.41595457Z"
+    created: "2019-11-21T17:53:45.133776537Z"
     description: A helm chart for Clara Rendering Services. Included are a Renderer,
       UI and Dataset management service.
-    digest: fefd4527e2fab2de181e492e09e210ab8c8116d0525bc16477367644052eec01
+    digest: ab9a8686eb1d6b992a464b9af2cf7758c32927abaaa620ee22bb5cf71ab68499
     name: clara-renderer
     urls:
     - https://ligenvidia.github.io/charts/clara-renderer-0.1.0.tgz
@@ -24,19 +24,29 @@ entries:
   deepstream-4-egx:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-25T21:35:49.416218651Z"
+    created: "2019-11-21T17:53:45.133995205Z"
     description: A Helm chart for Kubernetes
-    digest: 661fcf79f5f19ea98b157c2c7bc705399714a69f7df877d29259797091eeaeb8
+    digest: 5e11eb3aaa7cd1ca1bc3577db85ca35d7913a62be00e192ad3420702bb205e0c
     name: deepstream-4-egx
     urls:
     - https://ligenvidia.github.io/charts/deepstream-4-egx-0.1.0.tgz
     version: 0.1.0
+  egx-location:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-11-21T17:53:45.135743409Z"
+    description: A Helm chart for Atlas Monitoring Stack
+    digest: 8c8c96c61b6efbd1269af6b6dc6c77e2f97563793fe3858be715768d94c6f338
+    name: egx-location
+    urls:
+    - https://ligenvidia.github.io/charts/egx-location-0.1.0.tgz
+    version: 0.1.0
   nginx:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-25T21:35:49.416377317Z"
+    created: "2019-11-21T17:53:45.135925279Z"
     description: A Helm chart for Kubernetes
-    digest: 768c234acdac34cb921b3b7c33ee4e6942f9b34f2a03c3367021c31967a1e2db
+    digest: 725fd11450e4fa9d224a3446bbab2ab5253d06719d0adb8654e5456c9fdda705
     name: nginx
     urls:
     - https://ligenvidia.github.io/charts/nginx-0.1.5.tgz
@@ -44,9 +54,9 @@ entries:
   results-service:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-25T21:35:49.416612952Z"
+    created: "2019-11-21T17:53:45.136192411Z"
     description: A Helm chart for the Results Service
-    digest: 4360d716d9cfe6d2e112c13d1cf26ca4b8bf88c8dd266fb71e41e35df4eb98f4
+    digest: e88215af7280919a3cb2684b552ea347562af41af1b13a79361886f2f25208b9
     name: results-service
     urls:
     - https://ligenvidia.github.io/charts/results-service-0.1.0.tgz
@@ -54,11 +64,11 @@ entries:
   robocop:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-09-25T21:35:49.416832429Z"
+    created: "2019-11-21T17:53:45.136414305Z"
     description: A Helm chart for Kubernetes
-    digest: c8fa57a3ad5a374e7516bd26044c923a3b6389f467dd033c59c095ce02ea8e98
+    digest: 8e13ef4254da620a17f53cc01c1b3c6cd1b39f646949107a508f1eba4a846577
     name: robocop
     urls:
     - https://ligenvidia.github.io/charts/robocop-0.1.0.tgz
     version: 0.1.0
-generated: "2019-09-25T21:35:49.412468764Z"
+generated: "2019-11-21T17:53:45.129213201Z"
