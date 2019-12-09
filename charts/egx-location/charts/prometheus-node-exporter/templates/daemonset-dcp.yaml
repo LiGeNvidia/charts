@@ -2,12 +2,12 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: {{ template "prometheus-node-exporter-gpu.fullname" . }}-dcp
-  labels: {{ include "prometheus-node-exporter-gpu.labels" . | indent 4 }}
+  name: {{ template "prometheus-node-exporter.fullname" . }}-dcp
+  labels: {{ include "prometheus-node-exporter.labels" . | indent 4 }}
 spec:
   selector:
     matchLabels:
-      app: {{ template "prometheus-node-exporter-gpu.name" . }}
+      app: {{ template "prometheus-node-exporter.name" . }}
       release: {{ .Release.Name }}
   updateStrategy:
     type: RollingUpdate
@@ -15,10 +15,10 @@ spec:
       maxUnavailable: "{{ .Values.maxUnavailable }}"
   template:
     metadata:
-      labels: {{ include "prometheus-node-exporter-gpu.labels" . | indent 8 }}
+      labels: {{ include "prometheus-node-exporter.labels" . | indent 8 }}
     spec:
 {{- if and .Values.rbac.create .Values.serviceAccount.create }}
-      serviceAccountName: {{ template "prometheus-node-exporter-gpu.serviceAccountName" . }}
+      serviceAccountName: {{ template "prometheus-node-exporter.serviceAccountName" . }}
 {{- end }}
 {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
@@ -34,10 +34,9 @@ spec:
 {{ toYaml .Values.affinityDCP | indent 8 }}
     {{- end }}
       containers:
-
         - name: node-exporter
-          image: "{{ .Values.container.image.repository }}:{{ .Values.container.image.tag }}"
-          imagePullPolicy: "{{ .Values.container.image.pullPolicy }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           args:
           - --web.listen-address=0.0.0.0:{{ .Values.container.service.port }}
         {{- if and .Values.container .Values.container.args }}
@@ -64,7 +63,6 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 65534
-
         - name: nvidia-dcgm-exporter
           image: "{{ .Values.container3DCP.image.repository }}:{{ .Values.container3DCP.image.tag }}"
           imagePullPolicy: "{{ .Values.container3DCP.image.pullPolicy }}"
@@ -81,7 +79,17 @@ spec:
             runAsUser: 0
           volumeMounts:
 {{ toYaml .Values.dcgmPodExporterContainer.volumeMounts | indent 10 }}
-
+        {{- if .Values.fcacheExporterContainer.enabled }}
+        - name: nvidia-fscache-exporter
+          image: "{{ .Values.fcacheExporterContainer.image.repository }}:{{ .Values.fcacheExporterContainer.image.tag }}"
+          imagePullPolicy: {{ .Values.fcacheExporterContainer.image.pullPolicy }}
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          volumeMounts:
+{{ toYaml .Values.fcacheExporterContainer.volumeMounts | indent 10 }}
+        {{- end }}
+        {{- if .Values.pushProxyClient.enabled }}
         - name: push-proxy-client
           image: "{{ .Values.pushProxyClient.image.repository }}:{{ .Values.pushProxyClient.image.tag }}"
           imagePullPolicy: "{{ .Values.pushProxyClient.image.pullPolicy }}"
@@ -106,14 +114,13 @@ spec:
             value: {{ required "locationName" .Values.locationName }}
           - name: PORT
             value: "{{ .Values.container.service.port }}"
-
+        {{- end }}
     {{- if .Values.tolerations }}
       tolerations:
 {{ toYaml .Values.tolerations | indent 8 }}
     {{- end }}
       hostNetwork: true
       hostPID: true
-      dnsPolicy: ClusterFirstWithHostNet
       {{- if .Values.volumes }}
       volumes:
 {{ toYaml .Values.volumes | indent 6 }}

@@ -1,13 +1,13 @@
-{{- if .Values.affinity }}
+{{- if .Values.affinityGPU }}
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: {{ template "prometheus-node-exporter-gpu.fullname" . }}
-  labels: {{ include "prometheus-node-exporter-gpu.labels" . | indent 4 }}
+  name: {{ template "prometheus-node-exporter.fullname" . }}-gpu
+  labels: {{ include "prometheus-node-exporter.labels" . | indent 4 }}
 spec:
   selector:
     matchLabels:
-      app: {{ template "prometheus-node-exporter-gpu.name" . }}
+      app: {{ template "prometheus-node-exporter.name" . }}
       release: {{ .Release.Name }}
   updateStrategy:
     type: RollingUpdate
@@ -15,13 +15,13 @@ spec:
       maxUnavailable: "{{ .Values.maxUnavailable }}"
   template:
     metadata:
-      labels: {{ include "prometheus-node-exporter-gpu.labels" . | indent 8 }}
+      labels: {{ include "prometheus-node-exporter.labels" . | indent 8 }}
       # To enable systemd collector (NGCC-10316)
       annotations:
         container.apparmor.security.beta.kubernetes.io/node-exporter: unconfined
     spec:
 {{- if and .Values.rbac.create .Values.serviceAccount.create }}
-      serviceAccountName: {{ template "prometheus-node-exporter-gpu.serviceAccountName" . }}
+      serviceAccountName: {{ template "prometheus-node-exporter.serviceAccountName" . }}
 {{- end }}
 {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
@@ -33,7 +33,6 @@ spec:
       {{- end}}
       {{- end }}
       containers:
-
         - name: node-exporter
           image: "{{ .Values.container.image.repository }}:{{ .Values.container.image.tag }}"
           imagePullPolicy: "{{ .Values.container.image.pullPolicy }}"
@@ -76,7 +75,6 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 65534
-
         - name: nvidia-dcgm-exporter
           image: "{{ .Values.containerDCGM.image.repository }}:{{ .Values.containerDCGM.image.tag }}"
           imagePullPolicy: "{{ .Values.containerDCGM.image.pullPolicy }}"
@@ -85,7 +83,6 @@ spec:
             runAsUser: 0
           volumeMounts:
 {{ toYaml .Values.container3DCP.volumeMounts | indent 10 }}
-
         - name: pod-nvidia-gpu-metrics-exporter
           image: "{{ .Values.dcgmPodExporterContainer.image.repository }}:{{ .Values.dcgmPodExporterContainer.image.tag }}"
           imagePullPolicy: "{{ .Values.dcgmPodExporterContainer.image.pullPolicy }}"
@@ -94,8 +91,18 @@ spec:
             runAsUser: 0
           volumeMounts:
 {{ toYaml .Values.dcgmPodExporterContainer.volumeMounts | indent 10 }}
-
-        - name: push-proxy-client
+        {{- if .Values.fcacheExporterContainer.enabled }}
+        - name: nvidia-fscache-exporter
+          image: "{{ .Values.fcacheExporterContainer.image.repository }}:{{ .Values.fcacheExporterContainer.image.tag }}"
+          imagePullPolicy: {{ .Values.fcacheExporterContainer.image.pullPolicy }}
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          volumeMounts:
+{{ toYaml .Values.fcacheExporterContainer.volumeMounts | indent 10 }}
+        {{- end }}
+        {{- if .Values.pushProxyClient.enabled }}
+        - name: push-prox-client
           image: "{{ .Values.pushProxyClient.image.repository }}:{{ .Values.pushProxyClient.image.tag }}"
           imagePullPolicy: "{{ .Values.pushProxyClient.image.pullPolicy }}"
           securityContext:
@@ -114,22 +121,22 @@ spec:
               fieldRef:
                 fieldPath: metadata.namespace
           - name: SERVICE_NAME
-            value: {{ template "prometheus-node-exporter-gpu.fullname" . }}
+            value: {{ template "prometheus-node-exporter.fullname" . }}
           - name: LOCATION_NAME
             value: {{ required "locationName" .Values.locationName }}
           - name: PORT
             value: "{{ .Values.container.service.port }}"
-
+        {{- end }}
       hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
       hostPID: true
-      {{- if .Values.affinity }}
+      dnsPolicy: ClusterFirstWithHostNet
+      {{- if .Values.affinityGPU }}
       affinity:
-{{ toYaml .Values.affinity | indent 8 }}
+{{ toYaml .Values.affinityGPU | indent 8 }}
       {{- end }}
-      {{- if .Values.nodeSelector }}
+      {{- if .Values.nodeSelectorGPU }}
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
+{{ toYaml .Values.nodeSelectorGPU | indent 8 }}
       {{- end }}
       {{- if .Values.tolerations }}
       tolerations:

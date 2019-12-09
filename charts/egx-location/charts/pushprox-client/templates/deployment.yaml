@@ -19,36 +19,36 @@ spec:
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-      {{- toYaml . | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
       containers:
-
-      {{- range .Values.proxy.exposedServices }}
-      - name: {{ .namespace }}-{{ .name }}
-        image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
-        imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        args:
-        - --proxy-url={{ required "proxy.serverUrl" $.Values.proxy.serverUrl }}
-        - --fqdn={{ .name }}.{{ .namespace }}.svc.{{ $.Values.clusterDomain }}
-        - --metrics-addr=
-        # TODO(lig): how pass .port back to server?
-        resources:
-        {{- toYaml $.Values.resources | nindent 10 }}
-      {{- end }}
-
+        - name: {{ include "pushprox-client.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --proxy-url={{ .Values.proxy.url }}
+        {{- range .Values.proxy.exposedServices }}
+            - --fqdn={{ .name }}.{{ .namespace }}.svc.{{ $.Values.clusterDomain }}
+            - --metrics-addr=
+        {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       {{- with .Values.nodeSelector }}
       nodeSelector:
-      {{- toYaml . | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- with .Values.affinity }}
       affinity:
-      {{- toYaml . | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.tolerations }}
       tolerations:
-      {{- toYaml . | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
-
 {{- end }}
