@@ -17,24 +17,25 @@ spec:
     spec:
       nodeSelector:
         nodeType: gpu
+      terminationGracePeriodSeconds: 5
       containers:
-      - image: {{ .Vaules.image.repository }}:{{ .Vaules.image.tag }}
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         name: tf
         command:
         - "python"
         - "-c"
         - |
-          import tensorflow as tf
-          ngpu = 1
-          sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+          import torch
+          N = 2000
+          interval = 1000
+          device = torch.device('cuda')
+          x = torch.zeros(N, N, device=device).uniform_(-1.0, 1.0)
+          y = torch.zeros(N, N, device=device).uniform_(-1.0, 1.0)
+          count = 0
           while True:
-              c = []
-              for i in range(ngpu):
-                  d = "/device:GPU:" + str(i)
-                  with tf.device(d):
-                      a = tf.random.uniform([2000, 3000], minval=0.0, maxval=1.0)
-                      b = tf.random.uniform([3000, 2000], minval=0.0, maxval=1.0)
-                      c.append(tf.linalg.matmul(a, b))
-              with tf.device('/cpu:0'):
-                  sum = tf.add_n(c)
-              print(sess.run(sum))
+            x.add_(y)
+            count = count +1
+            if count % interval == 0:
+              print(x)
+              x.uniform_(-1.0, 1.0)
+              y.uniform_(-1.0, 1.0)
