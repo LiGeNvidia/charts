@@ -1,5 +1,5 @@
-IMAGE ?= quay.io/bhartiagrawalnvidia/charts-build:latest
-REPO_URL ?= "https://bhartiagrawalnvidia.github.io/charts"
+IMAGE ?= quay.io/ligenvidia/charts-build:latest
+REPO_URL ?= "https://ligenvidia.github.io/charts"
 
 .PHONY: update-repo build-env package-all update-index build-shell publish
 
