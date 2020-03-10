@@ -5,7 +5,7 @@ entries:
     appVersion: "1.0"
     created: "2019-12-11T22:52:47.400434783Z"
     description: A Helm chart for Kubernetes
-    digest: 504b3ac2fe69b5660fda8f74179ad1fab4debbf24236b355201f6961f37e8f4d
+    digest: 70115eef3dc4a557c7d0e9c954ee5141ca78a9d0edfa199406ad4f76eef3b037
     name: clara
     urls:
     - https://ligenvidia.github.io/charts/clara-0.0.1.tgz
@@ -16,7 +16,7 @@ entries:
     created: "2019-12-11T22:52:47.400630303Z"
     description: A helm chart for Clara Rendering Services. Included are a Renderer,
       UI and Dataset management service.
-    digest: 90bcd9be2380e4bae710ace788d5d0be30bc7166ac4eac8066980e08acd55880
+    digest: 5a9b8b7088ac9ab0b67b477f9c41b7bd331101f5d45d9c307621f7e85835a275
     name: clara-renderer
     urls:
     - https://ligenvidia.github.io/charts/clara-renderer-0.1.0.tgz
@@ -26,7 +26,7 @@ entries:
     appVersion: "1.0"
     created: "2019-12-11T22:52:47.400843818Z"
     description: A Helm chart for Kubernetes
-    digest: ac09438f8d122a840cb62f9321cb9117b740f236c19c20d57be8c829d7f48b48
+    digest: 026b06e8ac39fd20d9cdcbeaa0677104058a90e39e211ac73348df956cf6b8d7
     name: deepstream-4-egx
     urls:
     - https://ligenvidia.github.io/charts/deepstream-4-egx-0.1.0.tgz
@@ -36,7 +36,7 @@ entries:
     appVersion: "1.0"
     created: "2019-12-11T22:52:47.402504798Z"
     description: A Helm chart for Atlas Monitoring Stack
-    digest: d132287fe2c56d58cfddaccbfea9553ffa0fe5dfaf6d5d2a745f752fe6b2a108
+    digest: 3933d2f4663b76210b59d4b3966077925a386fb3463e2e9246fffd9ba3857639
     name: egx-location
     urls:
     - https://ligenvidia.github.io/charts/egx-location-1.11.0.tgz
@@ -44,9 +44,9 @@ entries:
   gpu-hog:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-11T22:52:47.402643924Z"
+    created: "2020-03-10T07:54:47.397567493Z"
     description: A Helm chart to produce non-stopping gpu workload
-    digest: 30dfe65b7d07a7ecfc8c39cfa604833a213bebe843cfaf68de19052f8e29bb43
+    digest: af590f53cfffe1599788e7cff62aea9cf1d3194f67ccf479e02495e7e051cd54
     name: gpu-hog
     urls:
     - https://ligenvidia.github.io/charts/gpu-hog-0.1.0.tgz
@@ -81,4 +81,4 @@ entries:
     urls:
     - https://ligenvidia.github.io/charts/robocop-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-11T22:52:47.397567493Z"
+generated: "2020-03-10T07:54:47.397567493Z"
