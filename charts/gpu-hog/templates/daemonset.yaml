@@ -21,6 +21,9 @@ spec:
       containers:
       - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         name: tf
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         command:
         - "python"
         - "-c"
